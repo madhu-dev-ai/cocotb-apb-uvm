@@ -1,8 +1,8 @@
-\# cocotb-apb-uvm
+# cocotb-apb-uvm
 
 
 
-\[!\[test](https://github.com/madhu-dev-ai/cocotb-apb-uvm/actions/workflows/test.yml/badge.svg)](https://github.com/madhu-dev-ai/cocotb-apb-uvm/actions/workflows/test.yml)
+[![test](https://github.com/madhu-dev-ai/cocotb-apb-uvm/actions/workflows/test.yml/badge.svg)](https://github.com/madhu-dev-ai/cocotb-apb-uvm/actions/workflows/test.yml)
 
 
 
@@ -10,7 +10,7 @@ A UVM-style layered testbench in cocotb (Python) for an APB register block.
 
 
 
-\## Structure
+## Structure
 
 
 
@@ -26,33 +26,33 @@ A UVM-style layered testbench in cocotb (Python) for an APB register block.
 
 | ApbCoverage | Counts which legal cases were seen (10 bins). |
 
-| make\_env | Builds the classes, connects them, starts the clock and monitor, resets the DUT. |
+| make_env | Builds the classes, connects them, starts the clock and monitor, resets the DUT. |
 
 
 
-\## Design under test
+## Design under test
 
 
 
-apb\_regs.sv has 4 registers: CTRL (0x0), DATA (0x4), STATUS (0x8, read-only, 0xA5) and SCRATCH (0xC). pslverr is raised on a bad address or a write to STATUS.
+apb_regs.sv has 4 registers: CTRL (0x0), DATA (0x4), STATUS (0x8, read-only, 0xA5) and SCRATCH (0xC). pslverr is raised on a bad address or a write to STATUS.
 
 
 
-\## Tests
+## Tests
 
 
 
-\- test\_coverage\_basic: 6 directed transfers. Covers 6 of 10 bins.
+- test_coverage_basic: 6 directed transfers. Covers 6 of 10 bins.
 
-\- test\_random: 500 random reads and writes with full 32-bit data. Covers 10 of 10 bins.
-
-
-
-\## Bug stories
+- test_random: 500 random reads and writes with full 32-bit data. Covers 10 of 10 bins.
 
 
 
-\### Bug 1: write to read-only STATUS did not raise an error
+## Bug stories
+
+
+
+### Bug 1: write to read-only STATUS did not raise an error
 
 
 
@@ -60,11 +60,11 @@ I removed the pslverr line for writes to STATUS. Both tests failed. The scoreboa
 
 
 
-\### Bug 2: SCRATCH lost its upper 16 bits
+### Bug 2: SCRATCH lost its upper 16 bits
 
 
 
-I changed the SCRATCH write so only pwdata\[15:0] was stored. The directed test still passed, because it never writes SCRATCH. The random test failed on many reads of address 0xC. Example:
+I changed the SCRATCH write so only pwdata[15:0] was stored. The directed test still passed, because it never writes SCRATCH. The random test failed on many reads of address 0xC. Example:
 
 
 
@@ -76,7 +76,7 @@ The written value was 0x57c25e68 and only 0x5e68 came back. Lesson: directed tes
 
 
 
-\## Run it
+## Run it
 
 
 
